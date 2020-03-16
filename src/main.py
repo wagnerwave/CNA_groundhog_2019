@@ -23,7 +23,7 @@ def groundhog():
         if user_input == 'STOP':
             groundhog_end(nb_tendency, wvlist)
         else:
-            
+            exit(0) # in the futur in this place function for print and calculate
 
 def groundhog_end(nb_tendency, wvlist):
     fbk = "["
