@@ -10,17 +10,17 @@
 import sys
 
 def groundhog_end():
-
+    exit(84)
 
 def groundhog():
     p = sys.argv[1]
 
     while(1):
         user_input = input()
-        if user_input == 'STOP'
+        if user_input == 'STOP':
             groundhog_end()
-        else
-
+        else:
+            exit(0)
 
 def help():
     print("SYNOPSIS")
@@ -32,10 +32,10 @@ def help():
 def parsing():
     if len(sys.argv) < 2:
         help()
-        exit()
-    if sys.argv == "-h"
+        exit(84)
+    if sys.argv == "-h":
         help()
-        exit()
+        exit(84)
 
 
 if __name__ == '__main__':
