@@ -9,18 +9,24 @@
 
 import sys
 
-def groundhog_end():
-    exit(84)
-
 def groundhog():
-    p = sys.argv[1]
+    period = sys.argv[1]
+    nb_tendency = 0
+    wvlist = [21.3, 37.5]
 
     while(1):
         user_input = input()
         if user_input == 'STOP':
-            groundhog_end()
+            groundhog_end(nb_tendency, wvlist)
         else:
             exit(0)
+
+def groundhog_end(nb_tendency, wvlist):
+    fbk = "["
+    lbk = "]"
+    print("Global tendency witched", nb_tendency, "times")
+    print(len(wvlist),"weirdest values are ", fbk, str(wvlist)[1:-1], lbk)
+    exit(0)
 
 def help():
     print("SYNOPSIS")
