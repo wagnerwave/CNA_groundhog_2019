@@ -10,9 +10,13 @@
 import sys
 
 def groundhog():
-    period = sys.argv[1]
-    nb_tendency = 0
-    wvlist = [21.3, 37.5]
+    period = sys.argv[1] # nomber of days
+    nb_tendency = 0 # nomber of global tendency switched
+    wvlist = [1.32, 22.1] # list of weirdest values
+
+    s = [] # standard deviate
+    g = [] # temperature increase average
+    r = [] # relative temparature evolution
 
     while(1):
         user_input = input()
@@ -41,7 +45,7 @@ def parsing():
         exit(84)
     if sys.argv == "-h":
         help()
-        exit(84)
+        exit(0)
 
 
 if __name__ == '__main__':
