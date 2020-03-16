@@ -10,7 +10,7 @@
 import sys
 
 def groundhog():
-    period = sys.argv[1] # nomber of days
+    (int)period = sys.argv[1] # nomber of days
     nb_tendency = 0 # nomber of global tendency switched
     wvlist = [1.32, 22.1] # list of weirdest values
 
@@ -23,7 +23,7 @@ def groundhog():
         if user_input == 'STOP':
             groundhog_end(nb_tendency, wvlist)
         else:
-            exit(0)
+            
 
 def groundhog_end(nb_tendency, wvlist):
     fbk = "["
