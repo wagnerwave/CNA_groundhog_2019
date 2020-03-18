@@ -7,47 +7,12 @@
 ## Groundhog projet
 ##
 
+from groundhog import Groundhog
 import sys
 
-def groundhog():
-    (int)period = sys.argv[1] # nomber of days
-    nb_tendency = 0 # nomber of global tendency switched
-    wvlist = [1.32, 22.1] # list of weirdest values
-
-    s = [] # standard deviate
-    g = [] # temperature increase average
-    r = [] # relative temparature evolution
-
-    while(1):
-        user_input = input()
-        if user_input == 'STOP':
-            groundhog_end(nb_tendency, wvlist)
-        else:
-            exit(0) # in the futur in this place function for print and calculate
-
-def groundhog_end(nb_tendency, wvlist):
-    fbk = "["
-    lbk = "]"
-    print("Global tendency witched", nb_tendency, "times")
-    print(len(wvlist),"weirdest values are ", fbk, str(wvlist)[1:-1], lbk)
-    exit(0)
-
-def help():
-    print("SYNOPSIS")
-    print("\t./groundhog period")
-    print("")
-    print("DESCRIPTION")
-    print("\tperiod\tthe number of days defining a period")
-
-def parsing():
-    if len(sys.argv) < 2:
-        help()
-        exit(84)
-    if sys.argv == "-h":
-        help()
-        exit(0)
-
+def groundhog_day():
+    groundhog = Groundhog()
+    groundhog.start()
 
 if __name__ == '__main__':
-    parsing()
-    groundhog()
+    groundhog_day()
