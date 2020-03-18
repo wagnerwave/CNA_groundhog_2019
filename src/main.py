@@ -7,7 +7,7 @@
 ## Groundhog projet
 ##
 
-from groundhog import Groundhog
+from src.groundhog import Groundhog
 import sys
 
 def groundhog_day():
