@@ -11,14 +11,13 @@ import sys
 import math
 
 class Groundhog:
-    def __init__(self):
-        self._nbTendency = 0
-        self._weirdestValueList = []
-        self._Lastr = 0
-        self._r = 0
-        self._g = 0
-        self._s = 0
-        self._period = 0
+    self._nbTendency = 0
+    self._weirdestValueList = []
+    self._Lastr = 0
+    self._r = 0
+    self._g = 0
+    self._s = 0
+    self._period = 0
 
     def help():
         print("SYNOPSIS")
@@ -34,7 +33,7 @@ class Groundhog:
             help()
             exit(0)
         try:
-            self._period = (int)sys.argv[1]
+            self._period = sys.argv[1]
         except BadArgument:
                 exit(84)
 
@@ -52,7 +51,7 @@ class Groundhog:
 
 
     def calcul_weather(self, temperature):
-        if (len(self._weirdestValueList) <= self._period)
+        if len(self._weirdestValueList) <= (int)self._period:
             return
         self.temperatureIncreaseAverage(temperature) # calcul for g value (self._g)
         self.relativeTemperatureEvolution(temperature) # calcul for r value (self._r)
@@ -71,12 +70,12 @@ class Groundhog:
     def standardDeviation(self):
         self._s = 0
 
-    def display(self)
-        if (len(temperature) <= self._period)
+    def display(self):
+        if len(temperature) <= self._period:
             print("g=nan\tr=nan%\ts=nan")
-        else
+        else:
             Weather_message = "g=" + str(self._g) + "\tr=" + str(self._r) + "%\ts=" + str(self._s)
-            if (((self._Lastr < 0 and self._r  >= 0) or (self._Lastr >= 0 and self._r < 0)) and self._Lastr)
+            if ((self._Lastr < 0 and self._r  >= 0) or (self._Lastr >= 0 and self._r < 0)) and self._Lastr:
                 Weather_message += "\ta switch occurs"
                 self._nbTendency += 1
             print(Weather_message)
