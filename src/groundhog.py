@@ -86,7 +86,7 @@ class Groundhog:
         Message_weirdest_value = str(len(self._weirdestValueList)) + " weirdest values are [" + str(self._weirdestValueList)[1:-1], "]"
 
         print(Message_tendency_witched)
-        print(Message_weirdest_value)
+        print(str(len(self._weirdestValueList)), "weirdest values are [", str(self._weirdestValueList)[1:-1], "]")
         exit(0)
 
 
