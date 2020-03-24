@@ -9,6 +9,7 @@
 
 import sys
 import math
+import array as arr
 
 class Groundhog:
     def __init__(self):
@@ -39,36 +40,43 @@ class Groundhog:
                 exit(84)
 
     def prompt(self):
-        temperature = []
+        temperature = arr.array('d', [])
 
         while(1):
             user_input = input()
             if user_input == 'STOP':
                 self.groundhog_end()
             else:
-                temperature.append(user_input)
+                temperature.append(float(user_input))
                 self.calcul_weather(temperature)
                 self.display(temperature)
 
 
     def calcul_weather(self, temperature):
-        if len(self._weirdestValueList) <= self._period:
+        if len(temperature) <= self._period:
             return
         self.temperatureIncreaseAverage(temperature) # calcul for g value (self._g)
         self.relativeTemperatureEvolution(temperature) # calcul for r value (self._r)
         self.standardDeviation(temperature) # calcul for s value (self._s)
 
-    def temperatureIncreaseAverage(self):
-        self._g = 0
+    def temperatureIncreaseAverage(temperature, self):
+        count = __len__(temperature)
+        count = count - self._period
+        while (count != __len__(temperature)):
+            n = temperature[count] - temperature[count - 1]
+            self._g += count if count > 0 else 0
+            count = count + 1
+        self._g /= self._period
+        print("g >>>> ", self._g)
 
-    def relativeTemperatureEvolution(self):
+    def relativeTemperatureEvolution(temperature, self):
         self._Lastr = self._r
         var1 = temperature[len(temperature) - self._period - 1]
         var2 = temperature[-1]
         self._r = (int)(round((var2-var1)/var1*100))
+        print("r >>>> ", self._r)
 
-
-    def standardDeviation(self):
+    def standardDeviation(temperature, self):
         self._s = 0
 
     def display(self, temperature):
@@ -88,7 +96,6 @@ class Groundhog:
         print(Message_tendency_witched)
         print(str(len(self._weirdestValueList)), "weirdest values are [", str(self._weirdestValueList)[1:-1], "]")
         exit(0)
-
 
     def start(self):
         self.parsing()
