@@ -37,20 +37,30 @@ class Groundhog:
             exit(0)
         try:
             self._period = int(sys.argv[1])
-        except BadArgument:
-                exit(84)
+        except ValueError:
+            exit(84)
 
     def prompt(self):
-
         while(1):
             user_input = input()
             if user_input == 'STOP':
+                if (len(self._temperature) < self._period):
+                    exit(84)
                 self.groundhog_end()
             else:
-                self._temperature.append(float(user_input))
-                self.calcul_weather()
-                self.display()
-
+                try:
+                    input_temperature = int(user_input)
+                    self._temperature.append(float(input_temperature))
+                    self.calcul_weather()
+                    self.display()
+                except ValueError:
+                    try:
+                        input_temperature = float(user_input)
+                        self._temperature.append(input_temperature)
+                        self.calcul_weather()
+                        self.display()
+                    except ValueError:
+                        exit(84)
 
     def calcul_weather(self):
         if len(self._temperature) <= self._period:
@@ -73,7 +83,7 @@ class Groundhog:
         self._Lastr = self._r
         var1 = self._temperature[len(self._temperature) - self._period - 1]
         var2 = self._temperature[-1]
-        self._r = (int)(round((var2-var1)/var1*100))
+        self._r = int((round((var2-var1)/var1*100)))
 
     def standardDeviation(self):
          self._s = stats.stdev(self._temperature)
