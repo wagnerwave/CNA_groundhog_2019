@@ -86,17 +86,21 @@ class Groundhog:
         self._Lastr = self._r
         var1 = self._temperature[len(self._temperature) - self._period - 1]
         var2 = self._temperature[-1]
-        self._r = int((round((var2-var1)/var1*100)))
+
+        if var1 == 0:
+            self._r = int(0)
+        else:
+            self._r = int((round((var2-var1)/var1*100)))
 
     def standardDeviation(self):
-         self._s = stats.stdev(self._temperature)
+        self._s = stats.stdev(self._temperature)
 
     def display(self):
         if len(self._temperature) <= self._period:
             print("g=nan\tr=nan%\ts=nan")
         else:
             Weather_message = "g=" + str(round(self._g, 2)) + "\tr=" + str(round(self._r, 2)) + "%\ts=" + str(round(self._s, 2))
-            if ((self._Lastr < 0 and self._r  >= 0) or (self._Lastr >= 0 and self._r < 0)) and self._Lastr:
+            if ((self._Lastr < 0 and self._r  >= 0) or (self._Lastr >= 0 and self._r < 0)) and (self._Lastr != self._r) and self._Lastr:
                 Weather_message += "\ta switch occurs"
                 self._nbTendency += 1
             print(Weather_message)
