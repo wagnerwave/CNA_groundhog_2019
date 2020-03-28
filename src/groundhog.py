@@ -42,7 +42,10 @@ class Groundhog:
 
     def prompt(self):
         while(1):
-            user_input = input()
+            try:
+                user_input = input()
+            except EOFError:
+                exit(84)
             if user_input == 'STOP':
                 if (len(self._temperature) < self._period):
                     exit(84)
