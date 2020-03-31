@@ -162,7 +162,7 @@ class Groundhog:
         if (len(self._weirdestValueList) >= 5):
             for x in range(0,5):
                 FiveShapeOfWeirdestValue.append(self._weirdestValueList[x][0])
-            print("5 weirdest values are [", str(FiveShapeOfWeirdestValue)[1:-1], "]")
+            print("5 weirdest values are [", ', '.join(FiveShapeOfWeirdestValue), "]")
             exit(0)
         else:
             exit(84)
