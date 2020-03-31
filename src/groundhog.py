@@ -128,6 +128,8 @@ class Groundhog:
 
     def temperatureSwitched(self):
         if (self._r != "nan"):
+            if (self._Lastr == self._r)
+                return False
             if (self._Lastr < 0 and self._r > 0):
                 return True
             elif (self._Lastr > 0 and self._r < 0):
@@ -160,7 +162,7 @@ class Groundhog:
         if (len(self._weirdestValueList) >= 5):
             for x in range(0,5):
                 FiveShapeOfWeirdestValue.append(self._weirdestValueList[x][0])
-            print("5 weirdest values are ", FiveShapeOfWeirdestValue)
+            print("5 weirdest values are [", str(FiveShapeOfWeirdestValue)[1:-1], "]")
             exit(0)
         else:
             exit(84)
