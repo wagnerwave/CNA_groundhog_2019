@@ -128,7 +128,7 @@ class Groundhog:
 
     def temperatureSwitched(self):
         if (self._r != "nan"):
-            if (self._Lastr == self._r)
+            if (self._Lastr == self._r):
                 return False
             if (self._Lastr < 0 and self._r > 0):
                 return True
