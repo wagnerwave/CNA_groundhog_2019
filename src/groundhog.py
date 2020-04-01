@@ -81,7 +81,7 @@ class Groundhog:
         try:
             diff = (float(user_input) - LowBand) / (HighBand / LowBand)
         except ZeroDivisionError:
-            exit(84)
+            diff = 0
         if (diff > 0.5):
             List.append(1 - diff)
         else:
@@ -103,7 +103,10 @@ class Groundhog:
                 n  = self._temperature[count] - self._temperature[count - 1]
                 self._g += n if n > 0 else 0
                 count = count + 1
-            self._g /= self._period
+            try:
+                self._g /= self._period
+            except ZeroDivisionError:
+                self._g = 0
         else:
             self._g = "nan"
 
@@ -128,8 +131,6 @@ class Groundhog:
 
     def temperatureSwitched(self):
         if (self._r != "nan"):
-            if (self._Lastr == self._r):
-                return False
             if (self._Lastr < 0 and self._r > 0):
                 return True
             elif (self._Lastr > 0 and self._r < 0):
