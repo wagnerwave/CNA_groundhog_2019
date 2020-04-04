@@ -125,23 +125,15 @@ class Groundhog:
         else:
             Q1 = self._weirdestValueList[len(self._weirdestValueList)//4]
             Q3 = self._weirdestValueList[3 * len(self._weirdestValueList)//4]
-        print("Median :", M)
-        print("Q1: ", Q1)
-        print("Q3: ", Q3)
         InterQ = Q3 - Q1
-        print("InterQ : ", InterQ)
         InterLimit = InterQ * 1.5
-        print("Inter Limit :", InterLimit)
         InterLimitInf = Q1 - InterLimit
         InterLimitSup = Q3 + InterLimit
-        print("InterLimitInf : ", InterLimitInf)
-        print("InterLimitSup : ", InterLimitSup)
         array = []
-        print("value user:", self._weirdestValueList)
         for i in self._weirdestValueList:
-            if (self._weirdestValueList[int(i)] < InterLimitInf or self._weirdestValueList[int(i)] > InterLimitSup):
-                array.append(self._weirdestValueList[int(i)])
-        print("Array : ", array)
+            if (i < InterLimitInf or i > InterLimitSup):
+                array.append(i)
+        return array
 
     def display(self):
         if (self._r != "nan" and self._g != "nan" and self._s != "nan"):
@@ -162,10 +154,9 @@ class Groundhog:
         Message_weirdest_value = str(len(self._weirdestValueList)) + " weirdest values are [" + str(self._weirdestValueList)[1:-1], "]"
 
         print(Message_tendency_witched)
-        self.getTheFiveWeirdestValue()
-        if (len(self._weirdestValueList) >= 5):
-            #FiveShapeOfWeirdestValue = self.getTheFiveWeirdestValue(self._weirdestValueList)
-            #print("5 weirdest values are [", ', '.join(FiveShapeOfWeirdestValue), "]"
+        FiveShapeOfWeirdestValue = self.getTheFiveWeirdestValue()
+        if (len(FiveShapeOfWeirdestValue) >= 5):
+            print("5 weirdest values are [", ', '.join(FiveShapeOfWeirdestValue), "]")
             exit(0)
         else:
             exit(84)
