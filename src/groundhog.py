@@ -60,13 +60,15 @@ class Groundhog:
                 except ValueError:
                         exit(84)
                 self._temperature.append(input_temperature)
-                self.calcul_weather(user_input)
+                self.calcul_weather(input_temperature)
                 self.display()
 
-    def calcul_weather(self, user_input):
+    def calcul_weather(self, user_input): 
         self.temperatureIncreaseAverage() # calcul for g value (self._g)
         self.relativeTemperatureEvolution() # calcul for r value (self._r)
         self.standardDeviation() # calcul for s value (self._s)
+        if (len(self._temperature) >= self._period):
+            self.getTheFiveWeirdestValue(user_input)
 
     def temperatureIncreaseAverage(self):
         if (len(self._temperature) >= self._period):
@@ -113,31 +115,26 @@ class Groundhog:
         else:
             return False
 
-    def getTheFiveWeirdestValue(self):
-        self._weirdestValueList = self._temperature
-        self._weirdestValueList.sort()
-        if (len(self._weirdestValueList) % 2) == 0:
-            M = median(self._weirdestValueList)
+    def getTheFiveWeirdestValue(self, user_input):
+        TempArray = []
+        TempArray = self._temperature
+        TempArray.sort()
+        if (len(TempArray) % 2) == 0:
+            M = median(TempArray)
         else:
-            M = ((median_low(self._weirdestValueList) + median_high(self._weirdestValueList)) / 2)
-        if (len(self._weirdestValueList) % 4) == 0:
-            Q1 = self._weirdestValueList[len(self._weirdestValueList)//4 - 1]
-            Q3 = self._weirdestValueList[3 * len(self._weirdestValueList)//4 - 1]
+            M = ((median_low(TempArray) + median_high(TempArray)) / 2)
+        if (len(TempArray) % 4) == 0:
+            Q1 = TempArray[len(TempArray)//4 - 1]
+            Q3 = TempArray[3 * len(TempArray)//4 - 1]
         else:
-            Q1 = self._weirdestValueList[len(self._weirdestValueList)//4]
-            Q3 = self._weirdestValueList[3 * len(self._weirdestValueList)//4]
+            Q1 = TempArray[len(TempArray)//4]
+            Q3 = TempArray[3 * len(TempArray)//4]
         InterQ = Q3 - Q1
-        InterLimit = InterQ * 0.32
+        InterLimit = InterQ * 0.3
         InterLimitInf = Q1 - InterLimit
         InterLimitSup = Q3 + InterLimit
-        ArrayTemp = []
-        for i in self._weirdestValueList:
-            if (i < InterLimitInf):
-                ArrayTemp.append(i)
-            elif (i > InterLimitSup):
-                ArrayTemp.append(i)
-        FinalArray = random.choices(ArrayTemp, k=5)
-        return FinalArray
+        if (user_input < InterLimitInf or user_input > InterLimitSup):
+                self._weirdestValueList.append(user_input)
 
     def display(self):
         if (self._r != "nan" and self._g != "nan" and self._s != "nan"):
@@ -153,13 +150,12 @@ class Groundhog:
             print("g=nan\tr=nan%\ts=nan")
 
     def groundhog_end(self):
-
+        FiveShapeOfWeirdestValue = []
         Message_tendency_witched = "Global tendency switched " + str(self._nbTendency) + " times"
-        Message_weirdest_value = str(len(self._weirdestValueList)) + " weirdest values are [" + str(self._weirdestValueList)[1:-1], "]"
-
         print(Message_tendency_witched)
-        FiveShapeOfWeirdestValue = self.getTheFiveWeirdestValue()
-        if (len(FiveShapeOfWeirdestValue) >= 5):
+        if (len(self._weirdestValueList) >= 5):
+            for x in range(0,23):
+                FiveShapeOfWeirdestValue = random.choices(self._weirdestValueList, k=5)
             print("5 weirdest values are", FiveShapeOfWeirdestValue)
             exit(0)
         else:
