@@ -168,33 +168,3 @@ class Groundhog:
     def start(self):
         self.parsing()
         self.prompt()
-
-    # self._weirdestValueList.sort(key=lambda x: x[1], reverse = False)
-    #   for x in range(0,5):
-    #       FiveShapeOfWeirdestValue.append(self._weirdestValueList[x][0])
-    # def AdditionTemperatureByPeriod(self):
-    #    i = 0
-    #    result = 0
-    #
-    #    while (i < self._period):
-    #        result = result + self._temperature[i - self._period]
-    #        i = i + 1
-    #    return (result)
-    #
-    # def AddWeirdestValue(self, user_input):
-    #    mobileAverage = (1 / self._period) * self.AdditionTemperatureByPeriod()
-    #    HighBand = mobileAverage + 2 * float(self._s)
-    #   LowBand = mobileAverage - 2 * float(self._s)
-    #   List = []
-    #   diff = 0
-    #
-    #    List.append(user_input)
-    #   try:
-    #       diff = (float(user_input) - LowBand) / (HighBand / LowBand)
-    #   except ZeroDivisionError:
-    #       diff = 0
-    #   if (diff > 0.5):
-    #      List.append(1 - diff)
-    #   else:
-    #       List.append(diff)
-    #   self._weirdestValueList.append(List)
