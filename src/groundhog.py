@@ -11,6 +11,7 @@ from statistics import *
 import statistics as stats
 import sys
 import math
+import random
 
 class Groundhog:
     def __init__(self):
@@ -126,14 +127,22 @@ class Groundhog:
             Q1 = self._weirdestValueList[len(self._weirdestValueList)//4]
             Q3 = self._weirdestValueList[3 * len(self._weirdestValueList)//4]
         InterQ = Q3 - Q1
-        InterLimit = InterQ * 1.5
+        InterLimit = InterQ * 0.32
         InterLimitInf = Q1 - InterLimit
         InterLimitSup = Q3 + InterLimit
-        array = []
+        ArrayTemp = []
         for i in self._weirdestValueList:
-            if (i < InterLimitInf or i > InterLimitSup):
-                array.append(i)
-        return array
+            if (i < InterLimitInf):
+                ArrayTemp.append(i)
+            elif (i > InterLimitSup):
+                ArrayTemp.append(i)
+        FinalArray = []
+        index = 0
+        while index < 5:
+            foo = random.choice(ArrayTemp)
+            FinalArray.append(foo)
+            index = index + 1
+        return FinalArray
 
     def display(self):
         if (self._r != "nan" and self._g != "nan" and self._s != "nan"):
@@ -156,7 +165,7 @@ class Groundhog:
         print(Message_tendency_witched)
         FiveShapeOfWeirdestValue = self.getTheFiveWeirdestValue()
         if (len(FiveShapeOfWeirdestValue) >= 5):
-            print("5 weirdest values are [", ', '.join(FiveShapeOfWeirdestValue), "]")
+            print("5 weirdest values are", FiveShapeOfWeirdestValue)
             exit(0)
         else:
             exit(84)
