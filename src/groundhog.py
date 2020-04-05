@@ -136,12 +136,7 @@ class Groundhog:
                 ArrayTemp.append(i)
             elif (i > InterLimitSup):
                 ArrayTemp.append(i)
-        FinalArray = []
-        index = 0
-        while index < 5:
-            foo = random.choice(ArrayTemp)
-            FinalArray.append(foo)
-            index = index + 1
+        FinalArray = random.choices(ArrayTemp, k=5)
         return FinalArray
 
     def display(self):
