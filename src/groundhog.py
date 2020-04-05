@@ -63,7 +63,7 @@ class Groundhog:
                 self.calcul_weather(input_temperature)
                 self.display()
 
-    def calcul_weather(self, user_input): 
+    def calcul_weather(self, user_input):
         self.temperatureIncreaseAverage() # calcul for g value (self._g)
         self.relativeTemperatureEvolution() # calcul for r value (self._r)
         self.standardDeviation() # calcul for s value (self._s)
@@ -154,8 +154,7 @@ class Groundhog:
         Message_tendency_witched = "Global tendency switched " + str(self._nbTendency) + " times"
         print(Message_tendency_witched)
         if (len(self._weirdestValueList) >= 5):
-            for x in range(0,23):
-                FiveShapeOfWeirdestValue = random.choices(self._weirdestValueList, k=5)
+            FiveShapeOfWeirdestValue = random.choices(self._weirdestValueList, k=5)
             print("5 weirdest values are", FiveShapeOfWeirdestValue)
             exit(0)
         else:
