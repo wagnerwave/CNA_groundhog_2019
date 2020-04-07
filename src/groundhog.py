@@ -11,7 +11,7 @@ from statistics import *
 import statistics as stats
 import sys
 import math
-import random
+import operator
 
 class Groundhog:
     def __init__(self):
@@ -68,16 +68,16 @@ class Groundhog:
         self.relativeTemperatureEvolution() # calcul for r value (self._r)
         self.standardDeviation() # calcul for s value (self._s)
         if (len(self._temperature) >= self._period):
-            self.getTheFiveWeirdestValue(user_input)
+            self.getTheWeirdestValue(user_input)
 
     def temperatureIncreaseAverage(self):
         if (len(self._temperature) >= self._period):
-            count = len(self._temperature) - self._period
             self._g = 0
-            while (count != len(self._temperature)):
-                n  = self._temperature[count] - self._temperature[count - 1]
+            index = len(self._temperature) - self._period
+            while (index != len(self._temperature)):
+                n  = self._temperature[index] - self._temperature[index - 1]
                 self._g += n if n > 0 else 0
-                count = count + 1
+                index = index + 1
             try:
                 self._g /= self._period
             except ZeroDivisionError:
@@ -100,7 +100,17 @@ class Groundhog:
 
     def standardDeviation(self):
         if (len(self._temperature) >= self._period - 1):
-            self._s = stats.stdev(self._temperature)
+            TempArray = []
+            LastPeriodeValue = len(self._temperature) - self._period
+            print("Size of last periode val:", LastPeriodeValue)
+            print("Size total val:", len(self._temperature))
+            print("Ecart : ", len(self._temperature) - self._period)
+            for i in range(LastPeriodeValue, len(self._temperature)):
+                TempArray.append(self._temperature[i])
+                print("i :", i)
+            self._s = stats.stdev(TempArray)
+            print("Size of Tab: ", len(TempArray), "Content :", TempArray)
+            #self._s = stats.stdev(self._temperature)
         else:
             self._s = "nan"
 
@@ -115,7 +125,7 @@ class Groundhog:
         else:
             return False
 
-    def getTheFiveWeirdestValue(self, user_input):
+    def getTheWeirdestValue(self, user_input):
         TempArray = []
         TempArray = self._temperature
         TempArray.sort()
@@ -136,6 +146,25 @@ class Groundhog:
         if (user_input < InterLimitInf or user_input > InterLimitSup):
                 self._weirdestValueList.append(user_input)
 
+    def getTheMostWeirdestValue(self):
+        TempList = []
+        ReturnList = []
+        Avg = sum(self._temperature) / len(self._weirdestValueList)
+        dict = {}
+        for i in self._weirdestValueList:
+            Nb = Avg - i
+            if (Nb < 0):
+                Nb = Nb * -1
+            dict[round(Nb, 2)] = i
+        dict = sorted(dict.items(), key=lambda t: t[0], reverse = True)
+        print(dict)
+        """for i in dict:
+            TempList.append(dict.get(i))
+        print("Temp List :", TempList)
+        for i in range(0, 5):
+            ReturnList.append(TempList[i])"""
+        return ReturnList
+
     def display(self):
         if (self._r != "nan" and self._g != "nan" and self._s != "nan"):
             Weather_message = "g=" + str(round(self._g, 2)) + "\tr=" + str(round(self._r, 2)) + "%\ts=" + str(round(self._s, 2))
@@ -154,7 +183,7 @@ class Groundhog:
         Message_tendency_witched = "Global tendency switched " + str(self._nbTendency) + " times"
         print(Message_tendency_witched)
         if (len(self._weirdestValueList) >= 5):
-            FiveShapeOfWeirdestValue = random.choices(self._weirdestValueList, k=5)
+            FiveShapeOfWeirdestValue = self.getTheMostWeirdestValue()
             print("5 weirdest values are", FiveShapeOfWeirdestValue)
             exit(0)
         else:
