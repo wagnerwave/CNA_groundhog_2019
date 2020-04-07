@@ -136,30 +136,25 @@ class Groundhog:
             Q1 = TempArray[len(TempArray)//4]
             Q3 = TempArray[3 * len(TempArray)//4]
         InterQ = Q3 - Q1
-        InterLimit = InterQ * 0.3
+        InterLimit = InterQ * 0.8
         InterLimitInf = Q1 - InterLimit
         InterLimitSup = Q3 + InterLimit
         if (user_input < InterLimitInf or user_input > InterLimitSup):
                 self._weirdestValueList.append(user_input)
 
     def getTheMostWeirdestValue(self):
-        print("Weirdest Value:", sorted(self._weirdestValueList))
-        """TempList = []
-        ReturnList = []
-        Avg = sum(self._temperature) / len(self._weirdestValueList)
-        dict = {}
+        RList = []
+        Avg = sum(self._weirdestValueList) / len(self._weirdestValueList)
+        d = {}
         for i in self._weirdestValueList:
             Nb = Avg - i
-            if (Nb < 0):
-                Nb = Nb * -1
-            dict[round(Nb, 2)] = i
-        dict = sorted(dict.items(), key=lambda t: t[0], reverse = True)
-        print(dict)
-        for i in dict:
-            TempList.append(dict.get(i))
-        print("Temp List :", TempList)
-        for i in range(0, 5):
-            ReturnList.append(TempList[i])"""
+            Nb = Nb**2
+            d[round(Nb, 2)] = i
+        d = sorted(d.items(), key=lambda t: t[0], reverse = True)
+        d.pop();
+        print(d.values());
+        return d.values()
+        
 
     def display(self):
         if (self._r != "nan" and self._g != "nan" and self._s != "nan"):
