@@ -121,7 +121,9 @@ class Groundhog:
 
     def getTheWeirdestValue(self, user_input):
         TempArray = []
-        TempArray = self._temperature.copy()
+        LastPeriodeValue = len(self._temperature) - self._period
+        for i in range(LastPeriodeValue, len(self._temperature)):
+                TempArray.append(self._temperature[i])
         TempArray.sort()
         if (len(TempArray) % 2) == 0:
             M = median(TempArray)
@@ -141,7 +143,8 @@ class Groundhog:
                 self._weirdestValueList.append(user_input)
 
     def getTheMostWeirdestValue(self):
-        TempList = []
+        print("Weirdest Value:", sorted(self._weirdestValueList))
+        """TempList = []
         ReturnList = []
         Avg = sum(self._temperature) / len(self._weirdestValueList)
         dict = {}
@@ -152,12 +155,11 @@ class Groundhog:
             dict[round(Nb, 2)] = i
         dict = sorted(dict.items(), key=lambda t: t[0], reverse = True)
         print(dict)
-        """for i in dict:
+        for i in dict:
             TempList.append(dict.get(i))
         print("Temp List :", TempList)
         for i in range(0, 5):
             ReturnList.append(TempList[i])"""
-        return ReturnList
 
     def display(self):
         if (self._r != "nan" and self._g != "nan" and self._s != "nan"):
