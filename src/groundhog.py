@@ -71,7 +71,7 @@ class Groundhog:
             self.getTheWeirdestValue(user_input)
 
     def temperatureIncreaseAverage(self):
-        if (len(self._temperature) >= self._period):
+        if (len(self._temperature) > self._period):
             self._g = 0
             index = len(self._temperature) - self._period
             while (index != len(self._temperature)):
@@ -86,7 +86,7 @@ class Groundhog:
             self._g = "nan"
 
     def relativeTemperatureEvolution(self):
-        if (len(self._temperature) >= self._period):
+        if (len(self._temperature) > self._period):
             if (self._r != "nan"):
                 self._Lastr = self._r
             var1 = self._temperature[len(self._temperature) - self._period - 1]
@@ -99,18 +99,12 @@ class Groundhog:
             self._r = "nan"
 
     def standardDeviation(self):
-        if (len(self._temperature) >= self._period - 1):
+        if (len(self._temperature) > self._period - 1):
             TempArray = []
             LastPeriodeValue = len(self._temperature) - self._period
-            print("Size of last periode val:", LastPeriodeValue)
-            print("Size total val:", len(self._temperature))
-            print("Ecart : ", len(self._temperature) - self._period)
             for i in range(LastPeriodeValue, len(self._temperature)):
                 TempArray.append(self._temperature[i])
-                print("i :", i)
             self._s = stats.stdev(TempArray)
-            print("Size of Tab: ", len(TempArray), "Content :", TempArray)
-            #self._s = stats.stdev(self._temperature)
         else:
             self._s = "nan"
 
@@ -127,7 +121,7 @@ class Groundhog:
 
     def getTheWeirdestValue(self, user_input):
         TempArray = []
-        TempArray = self._temperature
+        TempArray = self._temperature.copy()
         TempArray.sort()
         if (len(TempArray) % 2) == 0:
             M = median(TempArray)
