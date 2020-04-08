@@ -8,6 +8,7 @@
 ##
 
 from statistics import *
+from collections import OrderedDict
 import statistics as stats
 import sys
 import math
@@ -143,18 +144,18 @@ class Groundhog:
                 self._weirdestValueList.append(user_input)
 
     def getTheMostWeirdestValue(self):
-        RList = []
         Avg = sum(self._weirdestValueList) / len(self._weirdestValueList)
         d = {}
         for i in self._weirdestValueList:
             Nb = Avg - i
             Nb = Nb**2
             d[round(Nb, 2)] = i
-        d = sorted(d.items(), key=lambda t: t[0], reverse = True)
-        d.pop();
-        print(d.values());
-        return d.values()
-        
+        d = OrderedDict(sorted(d.items(), key=lambda t: t[0], reverse = True))
+        ReturnList = list(d.values())
+        while len(ReturnList) > 5:
+            ReturnList.pop()
+        return ReturnList
+
 
     def display(self):
         if (self._r != "nan" and self._g != "nan" and self._s != "nan"):
