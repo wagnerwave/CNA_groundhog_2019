@@ -16,14 +16,14 @@ import operator
 
 class Groundhog:
     def __init__(self):
-        self._nbTendency = 0
-        self._weirdestValueList = []
-        self._Lastr = 0
-        self._r = 0
-        self._g = 0
-        self._s = 0
-        self._period = 0
-        self._temperature = []
+        self._nbTendency = int(0)
+        self._weirdestValueList = list()
+        self._Lastr = float(0)
+        self._r = float(0)
+        self._g = float(0)
+        self._s = float(0)
+        self._period = int(0)
+        self._temperature = list()
 
     def help():
         print("SYNOPSIS")
@@ -101,7 +101,7 @@ class Groundhog:
 
     def standardDeviation(self):
         if (len(self._temperature) > self._period - 1):
-            TempArray = []
+            TempArray = list()
             LastPeriodeValue = len(self._temperature) - self._period
             for i in range(LastPeriodeValue, len(self._temperature)):
                 TempArray.append(self._temperature[i])
@@ -121,7 +121,7 @@ class Groundhog:
             return False
 
     def getTheWeirdestValue(self, user_input):
-        TempArray = []
+        TempArray = list()
         LastPeriodeValue = len(self._temperature) - self._period
         for i in range(LastPeriodeValue, len(self._temperature)):
                 TempArray.append(self._temperature[i])
@@ -145,7 +145,7 @@ class Groundhog:
 
     def getTheMostWeirdestValue(self):
         Avg = sum(self._weirdestValueList) / len(self._weirdestValueList)
-        d = {}
+        d = dict()
         for i in self._weirdestValueList:
             Nb = Avg - i
             Nb = Nb**2
