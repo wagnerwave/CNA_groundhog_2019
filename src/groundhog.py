@@ -177,9 +177,7 @@ class Groundhog:
         if (len(self._weirdestValueList) >= 5):
             FiveShapeOfWeirdestValue = self.getTheMostWeirdestValue()
             print("5 weirdest values are", FiveShapeOfWeirdestValue)
-            exit(0)
-        else:
-            exit(84)
+        exit(0)
 
     def start(self):
         self.parsing()
