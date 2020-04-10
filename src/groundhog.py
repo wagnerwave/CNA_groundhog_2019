@@ -171,13 +171,16 @@ class Groundhog:
             print("g=nan\tr=nan%\ts=nan")
 
     def groundhog_end(self):
-        FiveShapeOfWeirdestValue = []
+        FiveShapeOfWeirdestValue = list()
         Message_tendency_witched = "Global tendency switched " + str(self._nbTendency) + " times"
+
         print(Message_tendency_witched)
         if (len(self._weirdestValueList) >= 5):
             FiveShapeOfWeirdestValue = self.getTheMostWeirdestValue()
             print("5 weirdest values are", FiveShapeOfWeirdestValue)
-        exit(0)
+            exit(0)
+        else:
+            exit(84)
 
     def start(self):
         self.parsing()
