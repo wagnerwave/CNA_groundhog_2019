@@ -151,7 +151,6 @@ class Groundhog:
             Nb = Nb**2
             d[round(Nb, 2)] = i
         d = OrderedDict(sorted(d.items(), key=lambda t: t[0], reverse = True))
-        print(d)
         ReturnList = list(d.values())
         while len(ReturnList) > 5:
             ReturnList.pop()
@@ -176,7 +175,7 @@ class Groundhog:
         Message_tendency_witched = "Global tendency switched " + str(self._nbTendency) + " times"
 
         print(Message_tendency_witched)
-        if (len(self._weirdestValueList) >= 5):
+        if (self._nbTendency > 0):
             FiveShapeOfWeirdestValue = self.getTheMostWeirdestValue()
             print("5 weirdest values are", FiveShapeOfWeirdestValue)
         exit(0)
