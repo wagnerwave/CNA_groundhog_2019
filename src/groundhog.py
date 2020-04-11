@@ -151,6 +151,7 @@ class Groundhog:
             Nb = Nb**2
             d[round(Nb, 2)] = i
         d = OrderedDict(sorted(d.items(), key=lambda t: t[0], reverse = True))
+        print(d)
         ReturnList = list(d.values())
         while len(ReturnList) > 5:
             ReturnList.pop()
@@ -178,9 +179,7 @@ class Groundhog:
         if (len(self._weirdestValueList) >= 5):
             FiveShapeOfWeirdestValue = self.getTheMostWeirdestValue()
             print("5 weirdest values are", FiveShapeOfWeirdestValue)
-            exit(0)
-        else:
-            exit(84)
+        exit(0)
 
     def start(self):
         self.parsing()
