@@ -167,14 +167,14 @@ class Groundhog:
 
     def display(self):
         if (self._r != "nan" and self._g != "nan" and self._s != "nan"):
-            Weather_message = "g=" + str(round(self._g, 2)) + "\tr=" + str(round(self._r, 2)) + "%\ts=" + str(round(self._s, 2))
+            Weather_message = "g=" + str(round(self._g, 2)) + "\tr=" + str(round(self._r, 2)) + "%\ts=" + ("%.2f" % self._s)
             if (self.temperatureSwitched() == True):
                 Weather_message += "\ta switch occurs"
                 self._nbTendency = self._nbTendency + 1
             print(Weather_message)
         elif (self._r == "nan" and self._g == "nan" and self._s != "nan"):
-            Weather_message = "g=nan\tr=nan\ts=" + str(round(self._s, 2))
-            print(Weather_message)
+            Weather_message = "g=nan\tr=nan\ts="
+            print(Weather_message + "%.2f" % self._s)
         else:
             print("g=nan\tr=nan%\ts=nan")
 
