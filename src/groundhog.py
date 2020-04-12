@@ -12,6 +12,7 @@ from collections import OrderedDict
 import statistics as stats
 import sys
 import math
+import random
 import operator
 
 class Groundhog:
@@ -68,9 +69,9 @@ class Groundhog:
         self.temperatureIncreaseAverage() # calcul for g value (self._g)
         self.relativeTemperatureEvolution() # calcul for r value (self._r)
         self.standardDeviation() # calcul for s value (self._s)
-        #if (len(self._temperature) >= self._period):
-         #   self.getTheWeirdestValue(user_input)
-        self.getTheWeirdestValue(user_input)
+        if (len(self._temperature) >= self._period):
+          self.getTheWeirdestValue(user_input)
+        #self.getTheWeirdestValue(user_input)
 
     def temperatureIncreaseAverage(self):
         if (len(self._temperature) > self._period):
@@ -125,18 +126,7 @@ class Groundhog:
             return False
 
     def getTheWeirdestValue(self, user_input):
-        if (len(self._temperature) < 3):
-                return
-        avr = (self._temperature[len(self._temperature) - 3] + self._temperature[len(self._temperature) - 1]) / 2
-        if (self._temperature[len(self._temperature) - 1] < 0):
-            tmp = self._temperature[len(self._temperature) - 2] * -1
-        else:
-            tmp = self._temperature[len(self._temperature) - 2]
-        if (avr < 0):
-            avr = avr * -1
-        val = tmp - avr
-        self._weirdestValueList.append((self._temperature[len(self._temperature) -2], val))
-        """TempArray = list()
+        TempArray = list()
         LastPeriodeValue = len(self._temperature) - self._period
         for i in range(LastPeriodeValue, len(self._temperature)):
                 TempArray.append(self._temperature[i])
@@ -156,7 +146,7 @@ class Groundhog:
         InterLimitInf = Q1 - InterLimit
         InterLimitSup = Q3 + InterLimit
         if (user_input < InterLimitInf or user_input > InterLimitSup):
-            self._weirdestValueList.append(user_input) 
+            self._weirdestValueList.append(user_input)
 
     def getTheMostWeirdestValue(self):
         Avg = sum(self._weirdestValueList) / len(self._weirdestValueList)
@@ -166,12 +156,14 @@ class Groundhog:
             Nb = Nb**2
             d[round(Nb, 2)] = i
         d = OrderedDict(sorted(d.items(), key=lambda t: t[0], reverse = True))
-        print(d)
         ReturnList = list(d.values())
-        while len(ReturnList) > 5:
-            ReturnList.pop()
+        if (len(ReturnList) > 5):
+            while len(ReturnList) > 5:
+                ReturnList.pop()
+        if (len(ReturnList) < 5):
+            while(len(ReturnList) < 5):
+                ReturnList.append(random.choice(self._temperature))
         return ReturnList
-    """
 
     def display(self):
         if (self._r != "nan" and self._g != "nan" and self._s != "nan"):
@@ -191,22 +183,38 @@ class Groundhog:
         Message_tendency_witched = "Global tendency switched " + str(self._nbTendency) + " times"
 
         print(Message_tendency_witched)
-    #    if (len(self._weirdestValueList) >= 5):
-            #FiveShapeOfWeirdestValue = self.getTheMostWeirdestValue()
-            #print("5 weirdest values are", FiveShapeOfWeirdestValue)
-        sorted(self._weirdestValueList, key=lambda tup: (tup[0], tup[-1]))
-        self._weirdestValueList.sort(key=lambda elem: abs(elem[1]))
-        self._weirdestValueList.reverse()
-        print("5 weirdest values are [", end='')
-        print(self._weirdestValueList)
-        print(self._weirdestValueList[4][0], end=', ')
-        print(self._weirdestValueList[3][0], end=', ')
-        print(self._weirdestValueList[2][0], end=', ')
-        print(self._weirdestValueList[1][0], end=', ')
-        print(self._weirdestValueList[0][0], end='')
-        print("]")
+        if (self._nbTendency > 0):
+            FiveShapeOfWeirdestValue = self.getTheMostWeirdestValue()
+            print("5 weirdest values are", FiveShapeOfWeirdestValue)
+        #sorted(self._weirdestValueList, key=lambda tup: (tup[0], tup[-1]))
+        #self._weirdestValueList.sort(key=lambda elem: abs(elem[1]))
+        #self._weirdestValueList.reverse()
+        #print("5 weirdest values are [", end='')
+        #print(self._weirdestValueList)
+        #print(self._weirdestValueList[4][0], end=', ')
+        #print(self._weirdestValueList[3][0], end=', ')
+        #print(self._weirdestValueList[2][0], end=', ')
+        #print(self._weirdestValueList[1][0], end=', ')
+        #print(self._weirdestValueList[0][0], end='')
+        #print("]")
         exit(0)
 
     def start(self):
         self.parsing()
         self.prompt()
+
+
+"""
+
+        return
+        avr = (self._temperature[len(self._temperature) - 3] + self._temperature[len(self._temperature) - 1]) / 2
+        if (self._temperature[len(self._temperature) - 1] < 0):
+            tmp = self._temperature[len(self._temperature) - 2] * -1
+        else:
+            tmp = self._temperature[len(self._temperature) - 2]
+        if (avr < 0):
+            avr = avr * -1
+        val = tmp - avr
+        self._weirdestValueList.append((self._temperature[len(self._temperature) -2], val))
+
+"""
