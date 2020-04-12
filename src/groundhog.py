@@ -149,8 +149,10 @@ class Groundhog:
             self._weirdestValueList.append(user_input)
 
     def getTheMostWeirdestValue(self):
-        if (len(self._weirdestValueList) > 0):
+        try:
             Avg = sum(self._weirdestValueList) / len(self._weirdestValueList)
+        except ZeroDivisionError:
+            Avg = 0
         d = dict()
         for i in self._weirdestValueList:
             Nb = Avg - i
